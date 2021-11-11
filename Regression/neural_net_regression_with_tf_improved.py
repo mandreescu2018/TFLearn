@@ -1,6 +1,6 @@
 
 import tensorflow as tf
-print(tf.__version__)
+
 import numpy as np
 import matplotlib.pyplot as plt
 
@@ -20,7 +20,10 @@ y = tf.cast(tf.constant(y), dtype=tf.float32)
 
 
 # set random seed
+
 tf.random.set_seed(42)
+
+
 
 # Improve model
 # 1. Creating the model
@@ -45,7 +48,7 @@ model.compile(loss=tf.keras.losses.mae,
               metrics=["mae"])
 
 # 3. Fit the model
-model.fit(X, y, epochs=100)
+model.fit(X, y, epochs=95)
 
 # check out X and y
 print(X)
@@ -53,6 +56,7 @@ print(y)
 
 # Make a prediction
 print(model.predict([17.0]))
+
 
 
 
