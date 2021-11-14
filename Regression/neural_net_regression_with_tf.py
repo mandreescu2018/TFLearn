@@ -1,8 +1,8 @@
 # Introduction to regression
-import os
-os.environ["CUDA_VISIBLE_DEVICES"] = "-1"
+# import os
+# os.environ["CUDA_VISIBLE_DEVICES"] = "-1"
 import tensorflow as tf
-print(tf.__version__)
+
 import numpy as np
 import matplotlib.pyplot as plt
 
@@ -55,7 +55,39 @@ model.compile(loss=tf.keras.losses.mae,
               metrics=["mae"])
 
 # 3. Fit the model
-model.fit(X, y, epochs=35)
+model.fit(X, y, epochs=100)
+
+# check out X and y
+print(X)
+print(y)
+
+# Make a prediction
+print(model.predict([17.0]))
+
+# Improve model
+# 1. Creating the model
+# More layers, increase the number of hidden units (neurons)
+# change the activation function for each layer
+# 2. Compile
+# change the optimization function, learning rate
+# 3. Fit the model
+# number of epochs, more data
+
+# 1. Create a model using the sequential API
+model = tf.keras.Sequential([
+    tf.keras.layers.Dense(100, activation=None,  input_shape=(1,)),
+    # tf.keras.layers.Dense(100, activation=None),
+
+    tf.keras.layers.Dense(1)
+])
+
+# 2. Compile the model
+model.compile(loss=tf.keras.losses.mae,
+              optimizer=tf.keras.optimizers.Adam(learning_rate=0.01),
+              metrics=["mae"])
+
+# 3. Fit the model
+model.fit(X, y, epochs=100)
 
 # check out X and y
 print(X)
