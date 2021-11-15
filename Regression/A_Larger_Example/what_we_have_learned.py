@@ -1,6 +1,7 @@
 import tensorflow as tf
 import pandas as pd
 from sklearn.model_selection import train_test_split
+import matplotlib.pyplot as plt
 
 insurance = pd.read_csv("insurance.csv")
 print(insurance)
@@ -35,5 +36,26 @@ print(res)
 print(y_train.median())
 print(y_train.mean())
 
+insurance_model_2 = tf.keras.Sequential([
+    tf.keras.layers.Dense(100),
+    tf.keras.layers.Dense(10),
+    tf.keras.layers.Dense(1)
+])
+
+insurance_model_2.compile(loss=tf.keras.losses.mae,
+                          optimizer=tf.keras.optimizers.Adam(),
+                          metrics=["mae"])
+
+history = insurance_model_2.fit(X_train, y_train, epochs=400)
+res = insurance_model_2.evaluate(X_test, y_test)
+print(res)
+print(y_train.median())
+print(y_train.mean())
+
+# plot history
+pd.DataFrame(history.history).plot()
+plt.ylabel("loss")
+plt.xlabel("epochs")
+plt.show()
 
 
