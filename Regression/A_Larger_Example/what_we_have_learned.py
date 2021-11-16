@@ -46,7 +46,7 @@ insurance_model_2.compile(loss=tf.keras.losses.mae,
                           optimizer=tf.keras.optimizers.Adam(),
                           metrics=["mae"])
 
-history = insurance_model_2.fit(X_train, y_train, epochs=400)
+history = insurance_model_2.fit(X_train, y_train, epochs=100)
 res = insurance_model_2.evaluate(X_test, y_test)
 print(res)
 print(y_train.median())
