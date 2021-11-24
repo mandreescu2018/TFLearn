@@ -70,8 +70,8 @@ def plot_decision_boundary(model, X, y):
     plt.xlim(xx.min(), xx.max())
     plt.ylim(yy.min(), yy.max())
 
-def plot_confusion_matrix(confusion_matrix, classes=None):
-    figsize = (10, 10)
+def plot_confusion_matrix(confusion_matrix, classes=None, text_size=10):
+    figsize = (15, 15)
     # normalize confusion matrix
     cm_norm = confusion_matrix.astype("float") / confusion_matrix.sum(axis=1)[:, np.newaxis]
     print(cm_norm)
@@ -105,16 +105,16 @@ def plot_confusion_matrix(confusion_matrix, classes=None):
         plt.text(j,i, f"{confusion_matrix[i,j]} ({cm_norm[i, j]*100:.1f}%)",
                  horizontalalignment="center",
                  color="white" if confusion_matrix[i,j]>threshold else "black",
-                 size=15)
+                 size=text_size)
 
     # set x-axis label to bottom
     ax.xaxis.set_label_position("bottom")
     ax.xaxis.tick_bottom()
 
     # adjust label size
-    ax.xaxis.label.set_size(20)
-    ax.yaxis.label.set_size(20)
-    ax.title.set_size(20)
+    ax.xaxis.label.set_size(text_size)
+    ax.yaxis.label.set_size(text_size)
+    ax.title.set_size(text_size)
 
 
 
