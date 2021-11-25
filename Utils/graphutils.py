@@ -2,6 +2,8 @@
 import matplotlib.pyplot as plt
 import numpy as np
 import itertools
+import random
+import tensorflow as tf
 
 # create a plot function
 def plot_predictions(train_data=None,
@@ -115,6 +117,39 @@ def plot_confusion_matrix(confusion_matrix, classes=None, text_size=10):
     ax.xaxis.label.set_size(text_size)
     ax.yaxis.label.set_size(text_size)
     ax.title.set_size(text_size)
+
+def plot_random_image(model, images, true_labels, classes):
+    """
+    Plot random images and labels it with prediction and truth label
+
+    :param model:
+    :param images:
+    :param true_labels:
+    :param classes:
+    :return:
+    """
+    i = random.randint(0, len(images))
+    target_image = images[i]
+    pred_probs = model.predict(target_image.reshape(1, 28, 28))
+    pred_label = classes[pred_probs.argmax()]
+    true_label = classes[true_labels[i]]
+
+    # plot image
+    plt.imshow(target_image, cmap=plt.cm.binary)
+
+    # change the color of title depending
+    # on if pred is right or wrong
+    if pred_label == true_label:
+        color = "green"
+    else:
+        color = "red"
+
+    plt.xlabel("Pred: {} {:2.0f}% (True: {})".format(pred_label,
+                                                     100*tf.reduce_max(pred_probs),
+                                                     true_label),
+               color=color)
+
+
 
 
 

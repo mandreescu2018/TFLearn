@@ -1,6 +1,8 @@
 import tensorflow as tf
 from tensorflow.keras.datasets import fashion_mnist
 from tensorflow.keras.callbacks import LearningRateScheduler
+from tensorflow.keras.utils import plot_model
+
 from sklearn.metrics import confusion_matrix
 from Utils import graphutils
 import os.path
@@ -56,29 +58,12 @@ if not os.path.isfile('my_model.h5'):
 else:
     model = tf.keras.models.load_model('my_model.h5')
 
-print(model.layers)
+print(model.layers[1])
 
-# Plot the learning rate decay curve
+# get the pattern of a layer in our network
+weights, biases = model.layers[2].get_weights()
 
-# lrs = 1e-3 * 10**(tf.range(20)/20)
-# plt.semilogx(lrs, history.history["loss"])
-# plt.xlabel("Learning rate")
-# plt.ylabel("Loss")
-# plt.show()
+print(weights, weights.shape)
+print(biases, biases.shape)
 
-y_probs = model.predict(test_data_norm)
-
-# Convert probabilities in int
-y_preds = y_probs.argmax(axis=1)
-
-# Create a confusion matrix
-cm = confusion_matrix(y_true=test_labels, y_pred=y_preds)
-
-# graphutils.plot_confusion_matrix(cm, classes=class_names)
-# plt.show()
-
-graphutils.plot_random_image(model,
-                             images=test_data_norm,
-                             true_labels=test_labels,
-                             classes=class_names)
-plt.show()
+plot_model(model, show_shapes=True)
