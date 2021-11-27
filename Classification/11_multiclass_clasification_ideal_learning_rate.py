@@ -6,9 +6,11 @@ from Utils import graphutils
 import os.path
 import numpy as np
 import matplotlib.pyplot as plt
+import time
 import random
 import pandas as pd
-
+model_name = 'my_model_10_neurons_layer_more.h5'
+number_of_epochs = 40
 # the data has already been sorted
 (train_data, train_labels), (test_data, test_labels) = fashion_mnist.load_data()
 
@@ -30,33 +32,44 @@ test_data_norm = test_data/255.0
 
 print(train_data_norm.min(), train_data_norm.max())
 
-if not os.path.isfile('my_model.h5'):
+if not os.path.isfile(model_name):
     tf.random.set_seed(42)
 
     model = tf.keras.Sequential([
         tf.keras.layers.Flatten(input_shape=(28, 28)),
-        tf.keras.layers.Dense(4, activation="relu"),
-        tf.keras.layers.Dense(4, activation="relu"),
+        tf.keras.layers.Dense(10, activation="relu"),
+        tf.keras.layers.Dense(10, activation="relu"),
+        tf.keras.layers.Dense(10, activation="relu"),
         tf.keras.layers.Dense(10, activation="softmax"),
     ])
 
     model.compile(loss=tf.keras.losses.SparseCategoricalCrossentropy(),
-                  optimizer=tf.keras.optimizers.Adam(learning_rate=0.001),
+                  optimizer=tf.keras.optimizers.Adam(learning_rate=0.003),
                   metrics=["accuracy"])
 
     # Create the learning rate callback
-    lr_scheduler = LearningRateScheduler(lambda epoch: 1e-3 * 10**(epoch/20))
+    lr_scheduler = LearningRateScheduler(lambda epoch: 1e-3 * 10**(epoch/number_of_epochs))
+
+    start = time.perf_counter()
 
     history = model.fit(train_data_norm,
                         train_labels,
-                        epochs=20,
+                        epochs=number_of_epochs,
                         validation_data=(test_data_norm, test_labels))
 
-    model.save('my_model.h5')
+    end = time.perf_counter()
+    print(f"Training Duration: {end - start} sec")
+
+    model.save(model_name)
 else:
-    model = tf.keras.models.load_model('my_model.h5')
+    model = tf.keras.models.load_model(model_name)
 
 print(model.layers)
+
+model_loss, model_accuracy = model.evaluate(test_data_norm, test_labels)
+# model_loss, model_accuracy = model.evaluate(X_test, y_test)
+print("loss: ", model_loss, "accuracy:", model_accuracy)
+# print(res_eval)
 
 # Plot the learning rate decay curve
 
