@@ -32,17 +32,17 @@ valid_data = valid_datagen.flow_from_directory(directory=test_dir,
 
 print(len(train_data))
 
-# Build a CNN model - Tiny VGG style
+# Build a model like in classification,
+# first with 4 neurons in Dense layers (2 Dense with 4 units)
+# result: val_accuracy: 0.5040
+# then try with 100 neurons, 3 Dense layers
+
 
 model = tf.keras.Sequential([
-    tf.keras.layers.Conv2D(filters=10, kernel_size=3, activation="relu", input_shape=(224, 224, 3)),
-    tf.keras.layers.Conv2D(filters=10, kernel_size=3, activation="relu"),
-    # tf.keras.layers.Activation(tf.nn.relu),
-    tf.keras.layers.MaxPool2D(pool_size=2, padding="valid"),
-    tf.keras.layers.Conv2D(filters=10, kernel_size=3, activation="relu"),
-    tf.keras.layers.Conv2D(filters=10, kernel_size=3, activation="relu"),
-    tf.keras.layers.MaxPool2D(pool_size=2),
-    tf.keras.layers.Flatten(),
+    tf.keras.layers.Flatten(input_shape=(224, 224, 3)),
+    tf.keras.layers.Dense(units=100, activation="relu"),
+    tf.keras.layers.Dense(100, activation="relu"),
+    tf.keras.layers.Dense(100, activation="relu"),
     tf.keras.layers.Dense(1, activation="sigmoid")
 ])
 
