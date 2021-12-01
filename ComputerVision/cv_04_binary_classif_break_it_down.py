@@ -6,13 +6,15 @@ from tensorflow.keras.optimizers import Adam
 from tensorflow.keras.layers import Dense, Flatten, Conv2D, MaxPool2D, Activation
 from tensorflow.keras import Sequential
 import matplotlib.pyplot as plt
+import matplotlib.image as mpimg
 import pandas as pd
 import cv_01_computer_vision_dataset as ds
-from Utils import graphutils
+from Utils import graphutils, preprocessutils, metricsutils
+import wget
 
 tf.random.set_seed(42)
 
-model_name = "CNN1.h5"
+model_name = "CNN2.h5"
 # Visualize the data
 # plt.figure()
 # plt.subplot(1, 2, 1)
@@ -21,6 +23,12 @@ model_name = "CNN1.h5"
 # pizza_img = ds.view_random_image("pizza_steak/train/", "pizza")
 # plt.show()
 
+class_names = ds.get_classes()
+
+# print(class_names)
+# img_url = 'https://raw.githubusercontent.com/mrdbourke/tensorflow-deep-learning/main/images/03-pizza-dad.jpeg'
+# wget.download(img_url)
+# exit(0)
 
 train_dir = ds.get_data_dir()
 test_dir = ds.get_data_dir(train=False)
@@ -35,7 +43,7 @@ train_datagen_augmented = ImageDataGenerator(rescale=1 / 255.,
                                              shear_range=0.2,
                                              zoom_range=0.2,
                                              width_shift_range=0.2,
-                                             height_shift_range=0.3,
+                                             height_shift_range=0.2,
                                              horizontal_flip=True)
 
 # Load our image data from dirs and turn them into batches
@@ -93,6 +101,10 @@ if not os.path.isfile(model_name):
 
     end = time.perf_counter()
     print(f"Training Duration: {end - start} sec")
+    graphutils.plot_loss_curves(history)
+    plt.show()
+
+    model.save(model_name)
 
 else:
     model = tf.keras.models.load_model(model_name)
@@ -100,5 +112,15 @@ else:
 # pd.DataFrame(history.history).plot(figsize=(10, 7))
 # When validation loss start to increase, the model is overfitting
 
-graphutils.plot_loss_curves(history)
-plt.show()
+# picture = "03-steak.jpeg"
+# picture = "steak1.jpg"
+# picture = "03-pizza-dad.jpeg"
+picture = "pizza.jpg"
+
+# steak = preprocessutils.load_and_preprocess_image("03-steak.jpeg")
+# pred = model.predict(tf.expand_dims(steak, axis=0))
+# print("prediction:", pred)
+# print("predicted name: ", class_names[int(tf.round(pred))])
+
+metricsutils.pred_and_plot(model, picture, class_names=class_names)
+
