@@ -9,7 +9,8 @@ import matplotlib.pyplot as plt
 import time
 import random
 import pandas as pd
-model_name = 'my_model_10_neurons_layer_more.h5'
+
+model_name = 'my_model_10_neurons0.h5'
 number_of_epochs = 40
 # the data has already been sorted
 (train_data, train_labels), (test_data, test_labels) = fashion_mnist.load_data()
