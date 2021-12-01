@@ -57,7 +57,7 @@ model.summary()
 
 start = time.perf_counter()
 history = model.fit(train_data,
-                    epochs=5,
+                    epochs=10,
                     steps_per_epoch=len(train_data),
                     validation_data=valid_data,
                     validation_steps=len(valid_data)
