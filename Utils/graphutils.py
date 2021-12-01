@@ -150,6 +150,28 @@ def plot_random_image(model, images, true_labels, classes):
                color=color)
 
 
+def plot_loss_curves(history):
+    loss = history.history["loss"]
+    val_loss = history.history["val_loss"]
+    accuracy = history.history["accuracy"]
+    val_accuracy = history.history["val_accuracy"]
+
+    epochs = range(len(history.history["loss"]))
+
+    # plot loss
+    plt.plot(epochs, loss, label="Training loss")
+    plt.plot(epochs, val_loss, label="Validation loss")
+    plt.title("loss")
+    plt.xlabel("epochs")
+    plt.legend()
+
+    # plot accuracy
+    plt.figure()
+    plt.plot(epochs, accuracy, label="Training accuracy")
+    plt.plot(epochs, val_accuracy, label="Validation accuracy")
+    plt.title("accuracy")
+    plt.xlabel("epochs")
+    plt.legend()
 
 
 

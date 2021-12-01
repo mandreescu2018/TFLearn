@@ -37,7 +37,7 @@ def view_random_image(target_dir, target_class):
 
     print(f"Image shape: {img.shape}")
 
-    plt.show()
+    # plt.show()
     return img
 
 

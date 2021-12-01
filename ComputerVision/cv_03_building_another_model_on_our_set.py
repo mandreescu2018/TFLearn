@@ -6,6 +6,7 @@ import time
 import tensorflow as tf
 from tensorflow.keras.preprocessing.image import ImageDataGenerator
 
+# GPU time: Training Duration: 46.2313429 sec
 # An end-to-end example
 
 tf.random.set_seed(42)
@@ -64,3 +65,5 @@ history = model.fit(train_data,
                     )
 end = time.perf_counter()
 print(f"Training Duration: {end - start} sec")
+
+# loss, accuracy = model.evaluate()
