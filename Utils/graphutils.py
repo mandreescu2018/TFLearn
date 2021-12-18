@@ -173,6 +173,8 @@ def plot_loss_curves(history):
     plt.xlabel("epochs")
     plt.legend()
 
+    plt.show()
+
 
 
 

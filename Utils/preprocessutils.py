@@ -1,6 +1,5 @@
 import tensorflow as tf
 
-
 def load_and_preprocess_image(filename, img_shape=224):
     img = tf.io.read_file(filename)
     img = tf.image.decode_image(img)

@@ -12,7 +12,10 @@ def mse(y_true, y_pred):
 def pred_and_plot(model, filename, class_names=None):
     img = preprocessutils.load_and_preprocess_image(filename)
     pred = model.predict(tf.expand_dims(img, axis=0))
-    pred_class = class_names[int(tf.round(pred))]
+    if len(pred[0]) > 1:
+        pred_class = class_names[tf.argmax(pred[0])]
+    else:
+        pred_class = class_names[int(tf.round(pred))]
 
     plt.imshow(img)
     plt.title(f'Prediction: {pred_class}')

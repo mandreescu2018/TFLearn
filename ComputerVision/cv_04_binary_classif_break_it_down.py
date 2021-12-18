@@ -114,8 +114,8 @@ else:
 
 # picture = "03-steak.jpeg"
 # picture = "steak1.jpg"
-# picture = "03-pizza-dad.jpeg"
-picture = "pizza.jpg"
+picture = "03-pizza-dad.jpeg"
+# picture = "pizza.jpg"
 
 # steak = preprocessutils.load_and_preprocess_image("03-steak.jpeg")
 # pred = model.predict(tf.expand_dims(steak, axis=0))
