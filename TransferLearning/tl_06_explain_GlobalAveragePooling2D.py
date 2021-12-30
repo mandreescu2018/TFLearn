@@ -4,7 +4,7 @@ from tensorflow.keras import layers
 input_shape = (1,4,4,3)
 tf.random.set_seed(42)
 input_tensor = tf.random.normal(input_shape)
-print(input_tensor)
+print("input_tensor", input_tensor)
 
 # FEATURE VECTOR
 
