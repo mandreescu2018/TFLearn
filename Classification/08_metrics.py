@@ -40,6 +40,6 @@ cm = confusion_matrix(y_true=y_test, y_pred=tf.round(y_preds))
 print(cm)
 
 graphutils.plot_confusion_matrix(cm)
-plt.show()
+# plt.show()
 
 

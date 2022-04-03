@@ -3,6 +3,7 @@ import tensorflow as tf
 import tensorflow_hub as hub
 from tensorflow.keras import layers
 
+
 def create_tensorboard_callback(dir_name, experiment_name):
     log_dir = dir_name + "/" + experiment_name + "/" + datetime.datetime.now().strftime("%Y%m%d-%H%M%S")
     tensorboard_callback = tf.keras.callbacks.TensorBoard(log_dir=log_dir)

@@ -53,10 +53,10 @@ test_data = test_datagen.flow_from_directory(test_dir,
 model = tf.keras.Sequential([
     Conv2D(filters=10, kernel_size=3, activation='relu', input_shape=(224,224,3)),
     # Activation(activation='relu'),
-    Conv2D(10,3,activation='relu'),
+    Conv2D(10, 3, activation='relu'),
     MaxPool2D(),
-    Conv2D(10,3, activation='relu'),
-    Conv2D(10,3, activation='relu'), #simplify in order to reduce overfitting
+    Conv2D(10, 3, activation='relu'),
+    Conv2D(10, 3, activation='relu'), #simplify in order to reduce overfitting
     MaxPool2D(),
     Flatten(),
     Dense(10, activation='softmax')

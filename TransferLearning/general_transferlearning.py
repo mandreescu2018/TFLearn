@@ -23,7 +23,8 @@ class NeuralModel():
             layers.experimental.preprocessing.RandomZoom(0.2),
             layers.experimental.preprocessing.RandomHeight(0.2),
             layers.experimental.preprocessing.RandomWidth(0.2)
-            # layers.experimental.preprocessing.Rescaling(1./255) # for Efficient net... data scaling is already in the model
+            # layers.experimental.preprocessing.Rescaling(1./255) # for Efficient net...
+            # data scaling is already in the model
         ], name="data_augmentation"
         )
 

@@ -4,6 +4,19 @@ import pathlib
 import numpy as np
 
 
+def preprocess_img(image, label, img_shape=224):
+    """
+    Converts image data type from 'uint8' to 'float32' and reshape image
+    :param image:
+    :param label:
+    :param img_shape:
+    :return:
+    """
+    image = tf.image.resize(image, size=[img_shape, img_shape])
+    # image = image/255.  # scale image values - For EfficientNetBx is not necessary
+    return tf.cast(image, tf.float32), label
+
+
 def load_and_preprocess_image(filename, img_shape=224):
     """
     Reads an image, turns into a tensor
